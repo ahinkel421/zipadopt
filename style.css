@@ -1,0 +1,203 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Bellefair', serif;
+	color: white;
+	background: -webkit-linear-gradient(rgba(28, 28, 31, 0.01), rgba(28, 28, 31, 0.1)), -webkit-linear-gradient(rgba(28, 28, 31, 0.5), rgba(28, 28, 31, 0.3)), url(cat.jpg);
+	background-position: center center;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+.hidden {
+	display: none;
+}
+
+#page-one-header {
+	text-align: center;
+	margin: 170px auto 24px auto;
+	font-size: 120px;
+	text-shadow: 2px 2px #001d91;
+	color: #c7e5ff;
+	cursor: default;
+	font-weight: normal;
+	border: 3px solid #c7e5ff;
+	width: 45%;
+}
+
+#greeting {
+	font-size: 35px;
+	width: 45%;
+	margin: 30px auto 130px auto;
+	color: rgb(239, 226, 195);
+	font-family: 'Crimson Text', serif;
+	text-align: center;
+}
+
+#first-form {
+	font-size: 30px;
+	color: rgb(239, 226, 195);
+	text-align: center;
+}
+
+.page-one-input {
+	width: 300px;
+	height: 30px;
+	font-size: 20px;
+}
+
+#first-search-button {
+	width: 75px;
+	height: 35px;
+	border-radius: 2px;
+	font-size: 20px;
+}
+
+#footer {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	font-size: 15px;
+	height: 60px;
+}
+
+#powered-by {
+	display: inline-block;
+	padding-top: 40px;
+}
+
+#navbar {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	background-color: rgba(5, 37, 102, .5);
+}
+
+.nav-search {
+	display: inline-block;
+	width: 150px;
+	height: 30px;
+	margin: 0 3px;
+	font-size: 15px;
+}
+
+#nav-header {
+	text-shadow: 2px 2px #001d91;
+	color: #c7e5ff;
+	cursor: pointer;
+	font-weight: normal;
+	border: 3px solid #c7e5ff;
+	padding: 2px;
+	font-size: 50px;
+	margin: 5px 5px;
+	width: 18%;
+	text-align: center;
+}
+
+#nav-form {
+	display: inline-block;
+	position: fixed;
+	right: 5px;
+	top: 25px;
+}
+
+#nav-button {
+	height: 30px;
+	font-size: 15px;
+}
+
+#pet-choices {
+	width: 65%;
+	margin: 100px 20px;
+}
+
+.pet {
+	width: 45%;
+	display: inline-block;
+	padding: 30px;
+}
+
+.pet-pic {
+	width: 100%;
+}
+
+.pet-name {
+	font-size: 25px;
+	font-weight: normal;
+	color: #c7e5ff;
+}
+
+.pet-info {
+	list-style-type: none;
+	font-size: 20px;
+	color: rgb(239, 226, 195);
+}
+
+.pet-age, .pet-gender, .pet-size {
+	display: inline-block;
+}
+
+#map {
+	width: 100%;
+	height: 100%;
+}
+
+#map-section {
+	background-color: red;
+	position: fixed;
+	right: 0px;
+	top: 77px;
+	bottom: 0px;
+	/*height: 1112px;*/
+	width: 33%;
+}
+
+#github-logo {
+	width: 60px;
+	height: 60px;
+	position: fixed;
+	right: 10px;
+	bottom: 10px;
+}
+
+.links {
+	text-decoration: none;
+	color: rgb(239, 226, 195);
+}
+
+@media (max-width: 1300px) {
+	#page-one-header {
+		font-size: 70px;
+	}
+
+	.page-one-label {
+	display: block;
+	width: 80%;
+	margin: 20px auto;
+}
+
+	.page-one-input {
+		display: block;
+		margin: 0 auto;
+	}
+
+	#greeting {
+		font-size: 28px;
+	}
+
+	#nav-header {
+		font-size: 30px;
+	}
+}
+
+@media (max-width: 600px) {
+	#page-one-header {
+		font-size: 40px;
+	}
+}
+
+

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Zipadopt" content="An animal adoption application.">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+	<title>Zipadopt</title>
+</head>
+<body>
+
+	<!-- Page One -->
+	<main id="page-one">
+	<h1 id="page-one-header">ZipAdopt</h1>
+	<p id="greeting">Search for an animal below and browse through a wide selection of adoptable pets in your area.</p>
+	<form id="first-form">
+		<label class="page-one-label">
+			Animal: <input type="animal-search" placeholder="Ex: dog, cat, bird" class="page-one-input">
+		</label>
+		<label class="page-one-label">Breed:
+			<input type="breed-search" placeholder="Ex: golden retriever, tabby, etc." class="page-one-input">
+		</label>
+		<label class="page-one-label">Size:
+			<select name="size-search" class="page-one-input">
+				<option>Small</option>
+				<option>Medium</option>
+				<option>Large</option>
+			</select>
+		</label>
+		<button id="first-search-button">Search</button>
+	</form>
+	</main>
+
+	<!-- Page Two -->
+	<main id="page-two"  class="hidden">
+		<nav id="navbar">
+			<h1 id="nav-header">ZipAdopt</h1>
+			<form id="nav-form">
+				<input name="animal-search-nav" placeholder="Animal" class="nav-search">
+				<input name="breed-search-nav" placeholder="Breed" class="nav-search">
+				<select name="size-search" class="nav-search">
+					<option>Small</option>
+					<option>Medium</option>
+					<option>Large</option>
+				</select>
+				<button id="nav-button">New Search</button>
+			</form>
+		</nav>
+		<section id="pet-choices">
+
+
+			<div class="pet" id="pet1">
+				<img src="#" class="pet-pic">
+				<h3 class="pet-name"></h3>
+				<ul class="pet-info">
+					<li class="pet-breed"></li>
+					<li class="pet-age"></li>
+					<li class="pet-gender"></li>
+					<li class="pet-size"></li>
+					<li class="pet-shelter"></li>
+					<li class="pet-location"></li>
+				</ul>
+			</div>
+
+			<div class="pet" id="pet2">
+				<img src="#" class="pet-pic">
+				<h3 class="pet-name"></h3>
+				<ul class="pet-info">
+					<li class="pet-breed"></li>
+					<li class="pet-age"></li>
+					<li class="pet-gender"></li>
+					<li class="pet-size"></li>
+					<li class="pet-gender"></li>
+					<li class="pet-shelter"></li>
+					<li class="pet-location"></li>
+				</ul>
+			</div>
+
+		</section>
+		<div id="map-section">
+			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1591913.7395781602!2d-77.2369665!3d38.80482095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1499432318793" id= 'map' frameborder="0" style="border:0" allowfullscreen></iframe>
+		</div>
+	</main>
+
+	<footer id="footer">
+		<span id="powered-by">*Powered by <a href="https://www.petfinder.com/" target="blank" class="links">Petfinder.com</a> and <a href= 'https://developers.google.com/maps/' target="blank" class="links">Google Maps</a></span>
+		<a href="https://github.com/ahinkel421" target="blank"><img src="github.png" id="github-logo"></a>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src='logic.js'></script>
+</body>
+</html>
