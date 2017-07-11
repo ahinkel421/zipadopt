@@ -48,11 +48,16 @@ body {
 	font-size: 20px;
 }
 
+#size-selector {
+	cursor: pointer;
+}
+
 #first-search-button {
 	width: 75px;
 	height: 35px;
 	border-radius: 2px;
 	font-size: 20px;
+	cursor: pointer;
 }
 
 #footer {
@@ -74,6 +79,7 @@ body {
 	top: 0px;
 	left: 0px;
 	right: 0px;
+	height: 6%;
 	background-color: rgba(5, 37, 102, .5);
 }
 
@@ -92,7 +98,7 @@ body {
 	font-weight: normal;
 	border: 3px solid #c7e5ff;
 	padding: 2px;
-	font-size: 50px;
+	font-size: 45px;
 	margin: 5px 5px;
 	width: 18%;
 	text-align: center;
@@ -111,8 +117,19 @@ body {
 }
 
 #pet-choices {
-	width: 65%;
-	margin: 100px 20px;
+	width: 66%;
+	display:inline-block;
+	position: fixed;
+	top: 77px;
+	bottom: 80px;
+	overflow: auto;
+}
+footer{
+	width: 66%;
+	display:inline-block;
+	position: fixed;
+	height:230px;
+	bottom: 0;
 }
 
 .pet {
@@ -133,6 +150,7 @@ body {
 
 .pet-info {
 	list-style-type: none;
+	padding-left: 0;
 	font-size: 20px;
 	color: rgb(239, 226, 195);
 }
@@ -147,19 +165,17 @@ body {
 }
 
 #map-section {
-	background-color: red;
 	position: fixed;
 	right: 0px;
 	top: 77px;
 	bottom: 0px;
-	/*height: 1112px;*/
 	width: 33%;
 }
 
 #github-logo {
 	width: 60px;
 	height: 60px;
-	position: fixed;
+	position: absolute;
 	right: 10px;
 	bottom: 10px;
 }
@@ -167,6 +183,12 @@ body {
 .links {
 	text-decoration: none;
 	color: rgb(239, 226, 195);
+}
+
+@media (min-width: 1500px) {
+	.pet {
+		width: 20%;
+	}
 }
 
 @media (max-width: 1300px) {
@@ -189,8 +211,51 @@ body {
 		font-size: 28px;
 	}
 
+
+	#nav-form {
+		margin-bottom: 30px;
+	}
+}
+
+@media (max-width: 1000px) {
+
+	#navbar {
+		height: 4%;
+	}
+
 	#nav-header {
 		font-size: 30px;
+		width: 30%;
+	}
+
+	.pet {
+		width: 90%;
+	}
+
+	#map-section {
+		display: none;
+	}
+
+	.nav-search {
+		display: block;
+		margin: 30px auto;
+	}
+
+	#nav-form {
+		background-color: rgba(5, 37, 102, .5);
+		border-radius: 3px;
+		margin-top: 24px;
+		right: 0px;
+		width: 25%;
+	}
+
+	#nav-button {
+		margin: 2px auto;
+	}
+
+	#github-logo {
+		right: 10px;
+		position: fixed;
 	}
 }
 
@@ -198,6 +263,11 @@ body {
 	#page-one-header {
 		font-size: 40px;
 	}
+
+	#nav-form {
+		width: 40%;
+	}
+
 }
 
 
