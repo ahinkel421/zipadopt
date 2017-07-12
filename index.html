@@ -45,8 +45,16 @@
 		<nav id="navbar">
 			<h1 id="nav-header">ZipAdopt</h1>
 			<form id="nav-form">
-				<input name="animal-search-nav" placeholder="Animal" class="nav-search">
-				<input name="breed-search-nav" placeholder="Breed" class="nav-search">
+				<select name="animal-search-nav" placeholder="Animal" class="nav-search" id="nav-animal-choice">
+					<option>dog</option>
+					<option>cat</option>
+					<option>bird</option>
+					<option>reptile</option>
+					<option>smallfurry</option>
+					<option>barnyard</option>
+					<option>horse</option>
+				</select>
+				<input name="breed-search-nav" placeholder="Breed" class="nav-search" id="nav-breed-choice">
 				<select name="size-search" class="nav-search">
 					<option>Small</option>
 					<option>Medium</option>
@@ -82,9 +90,15 @@
 		<div id="map-section">
 			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1591913.7395781602!2d-77.2369665!3d38.80482095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1499432318793" id= 'map' frameborder="0" style="border:0" allowfullscreen></iframe>
 		</div>
+
 		<div id="modal-background"></div>
+
+		<!-- THIS IS THE MODAL -->
+
 		<div id="modal-content">
-			<h3 class="pet-name"></h3>
+			<img src="xbutton.png" id="xbutton">
+			<img src="#" class="modal-pet-pic">
+			<h3 class="pet-name" id="modal-pet-name"></h3>
 
 			<button id="modal-close">Close Modal Window</button>
 		</div>

@@ -11,6 +11,16 @@ $(document).ready(function() {
 
 	});
 
+	//Tried, but isn't working ???
+
+	$('#nav-form').submit(function(event) {
+		event.preventDefault();
+		let navAnimalChoice = $('#nav-animal-choice').val();
+		let navBreedChoice = $('#nav-breed-choice').val();
+		console.log(navAnimalChoice);
+		getDataFromApi(navAnimalChoice);
+	})
+
 	$('#nav-header').click(function(event) {
 		location.reload();
 	});
@@ -37,11 +47,31 @@ $(document).ready(function() {
 						const currentPetName = currentPet.name.$t;
 						const currentPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : "Breed not listed";
 						const currentPetAge = currentPet.age.$t;
-						const currentPetGender = currentPet.sex.$t;
-						const currentPetSize = currentPet.size.$t;
+						let currentPetGender = currentPet.sex.$t;
+						let currentPetSize = currentPet.size.$t;
 
 						var petElement = $('#model-pet').find('.pet').clone();
 						petElement.attr('id', i);
+
+						if (currentPetGender === 'M') {
+							currentPetGender = 'Male';
+						}
+						else if (currentPetGender === "F") {
+							currentPetGender = 'Female';
+						}
+
+						if (currentPetSize === 'S') {
+							currentPetSize = 'Small';
+						}
+						else if (currentPetSize === 'M') {
+							currentPetSize = 'Medium';
+						}
+						else if (currentPetSize === 'L') {
+							currentPetSize = 'Large';
+						}
+						else {
+							currentPetSize = 'Size not listed'
+						}
 
 						petElement.find('img').attr('src', currentPetPic);
 						petElement.find('.pet-name').text(currentPetName);
@@ -56,14 +86,13 @@ $(document).ready(function() {
 				$(".modal-launcher, #modal-background, #modal-close").click(function () {
 					$("#modal-content, #modal-background").toggleClass("active");
 					var petIndex = $(this).attr('id');
-					
 
 					if (petIndex !== 'modal-close') {
 						var currentPet = petArray[petIndex];
-						console.log(currentPet);
+						var clickedPetPic = currentPet.media.photos.photo[0].$t;
 						const currentPetName = currentPet.name.$t;
-						console.log(currentPetName);
 						$('#modal-content').find('.pet-name').text(currentPetName);
+						$('.modal-pet-pic').attr('src', clickedPetPic);
 					}
 				});	
 			},
@@ -76,18 +105,20 @@ $(document).ready(function() {
 
 //Things to fix
 
-//1. Change animals to dropdown !!
-//2. The model (page 3) when you click on animals !!
-//3. Style modal
+//1. !! Change animals to dropdown 
+//2. !! The model (page 3) when you click on animals 
+//3.  ! Style modal
 //3. Making animals and names clickable
 //4. Having animals show up on map
 //5. Fix quality of images
-//6. Fix responsive design
-//7. Change M/F and S/M/L to Male/Female and small/med./large
+//6. !! Fix responsive design 
+//7. !! Change M/F and S/M/L to Male/Female and small/med./large 
 //8. Search by gender
 //9. Search by breed
 //10. Handle no results found
-//11. Get new search functioning
+//11. (tried) Get 'new search' functioning
+//12. Add clickable arrows to change pet in modal
+//13. Prevent modal from scrolling
 
 
 
