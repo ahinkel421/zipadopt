@@ -349,19 +349,28 @@ footer{
 #modal-pet-name {
 	display: block;
 	font-size: 50px;
-	clear: right;
+	clear: left;
 }
 
 .modal-pet-pic {
 	margin: 50px auto;
 	display: block;
-	width: 45%;
+	width: 60%;
 }
 
 #modal-pet-info {
 	color: rgb(239, 226, 195);
 	font-size: 20px;
 	list-style: none;
+}
+
+#modal-pet-description {
+	width: 90%;
+	text-align: center;
+	position: relative;
+	margin: 30px auto;
+	color: #c68b81;
+	font-size: 22px;
 }
 
 #modal-background.active, #modal-content.active {

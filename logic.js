@@ -1,6 +1,7 @@
 var state = {
 	animalChoice: '',
-	breedChoice: ''
+	breedChoice: '',
+	sizeChoice: ''
 };
 
 $(document).ready(function() {
@@ -10,18 +11,28 @@ $(document).ready(function() {
 		event.preventDefault();
 		state.animalChoice = $('.js-animal-choice').val();
 		state.breedChoice = $('.js-breed-choice').val();
+		state.sizeChoice = $('#size-selector').val();
 		getDataFromApi(state);
 	});
 
-	//Tried, but isn't working ???
-
 	$('#nav-form').submit(function(event) {
 		event.preventDefault();
-		let navAnimalChoice = $('#nav-animal-choice').val();
-		let navBreedChoice = $('#nav-breed-choice').val();
-		console.log(navAnimalChoice);
-		getDataFromApi(navAnimalChoice);
-	})
+		state.animalChoice = $('#nav-animal-choice').val();
+		state.breedChoice = $('#nav-breed-choice').val();
+		state.sizeChoice = $('#nav-size-choice').val();
+	});
+
+
+
+	//Tried, but isn't working ???
+
+	// $('#nav-form').submit(function(event) {
+	// 	event.preventDefault();
+	// 	let navAnimalChoice = $('#nav-animal-choice').val();
+	// 	let navBreedChoice = $('#nav-breed-choice').val();
+	// 	console.log(navAnimalChoice);
+	// 	getDataFromApi(navAnimalChoice);
+	// })
 
 	$('#nav-header').click(function(event) {
 		location.reload();
@@ -35,7 +46,8 @@ $(document).ready(function() {
 				key: 'fc1327e0ada9ec0e14f4de6009f2b8fa',
 				location: '20855',
 				animal: state.animalChoice,
-				breed: state.breedChoice
+				breed: state.breedChoice,
+				size: state.sizeChoice
 			},
 			dataType: 'jsonp',
 			success: function(data) {
@@ -46,20 +58,9 @@ $(document).ready(function() {
 					var currentPet = petArray[i];
 					if (currentPet.media.photos) {
 
-						const currentPetPic = currentPet.media.photos.photo[0].$t;
+						const currentPetPic = currentPet.media.photos.photo[2].$t;
 						const currentPetName = currentPet.name.$t;
 						const currentPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : state.breedChoice;
-						// const currentPetBreedsArray = currentPet.breeds.breed;
-						// console.log(currentPetBreedsArray);
-						// var currentPetBreeds = "";
-
-						// for (var i = 0; i < currentPetBreedsArray.length; i++) {
-						// 	var currentBreed = currentPetBreedsArray[i];
-						// 	currentPetBreeds = currentPetBreeds + currentBreed + " | ";
-						// }
-
-						// currentPetBreeds = currentPetBreeds.slice(0, -3);
-
 						const currentPetAge = currentPet.age.$t;
 						let currentPetGender = currentPet.sex.$t;
 						let currentPetSize = currentPet.size.$t;
@@ -106,14 +107,13 @@ $(document).ready(function() {
 
 					if (petIndex !== 'modal-close') {
 						let currentPet = petArray[petIndex];
-						let clickedPetPic = currentPet.media.photos.photo[0].$t;
+						let clickedPetPic = currentPet.media.photos.photo[2].$t;
 						let clickedPetName = currentPet.name.$t;
 						let clickedPetAge = currentPet.age.$t;
 						let clickedPetGender = currentPet.sex.$t;
 						let clickedPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : state.breedChoice;
 						let clickedPetSize = currentPet.size.$t;
 						let clickedPetDescription = currentPet.description.$t;
-						console.log(clickedPetDescription);
 
 						if (clickedPetGender === 'M') {
 							clickedPetGender = 'Male';
@@ -157,18 +157,13 @@ $(document).ready(function() {
 
 //Things to fix
 
-// ! Style modal
 // Having animals show up on map
-// Fix quality of images
-// Search by gender
-// Search by breed
 // Handle no results found
 // (tried) Get 'new search' functioning
 // Handle clickable arrows to change pet in modal
 // Prevent modal from scrolling
 // Can't change width of x button in media query
 // When maximizing page, modal doesn't center
-// Get arrow to float around name
 
 //FIXED 
 
@@ -176,7 +171,10 @@ $(document).ready(function() {
 // The model (page 3) when you click on animals 
 // Fix responsive design 
 // Change M/F and S/M/L to Male/Female and small/med./large 
-
+// Style modal
+// Search by gender
+// Search by breed
+// Fix quality of images
 
 
 
