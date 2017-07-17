@@ -1,32 +1,37 @@
 var state = {
 	animalChoice: '',
 	breedChoice: '',
-	sizeChoice: ''
+	sizeChoice: '',
+	petArray:[],
+	clickedPetIndex:-1
 };
 
 $(document).ready(function() {
+
 	$('#first-form').submit(function(event) {
+		event.preventDefault();
 		$('#page-one').addClass('hidden');
 		$('#page-two').removeClass('hidden');
-		event.preventDefault();
 		state.animalChoice = $('.js-animal-choice').val();
 		state.breedChoice = $('.js-breed-choice').val();
 		state.sizeChoice = $('#size-selector').val();
 		getDataFromApi(state);
 	});
 
+	// not working -> ?
 	$('#nav-form').submit(function(event) {
-		// event.preventDefault();
-		state.animalChoice = $('#nav-animal-choice').val();
-		state.breedChoice = $('#nav-breed-choice').val();
-		state.sizeChoice = $('#nav-size-choice').val();
-		console.log(state.sizeChoice);
-		getDataFromApi(state);
+		event.preventDefault();
+		// state.animalChoice = $('#nav-animal-choice').val();
+		// state.breedChoice = $('#nav-breed-choice').val();
+		// state.sizeChoice = $('#nav-size-choice').val();
+		// getDataFromApi(state);
 	});
 
+	// This allows a new search.
 	$('#nav-header, #search-again').click(function(event) {
 		location.reload();
 	});
+
 	function getDataFromApi(state) {
 		$.ajax({
 			url: "https://api.petfinder.com/pet.find",
@@ -41,132 +46,13 @@ $(document).ready(function() {
 			},
 			dataType: 'jsonp',
 			success: function(data) {
-
-				const petArray = data.petfinder.pets.pet;
-
-				if (petArray === undefined) {
+				state.petArray = data.petfinder.pets.pet; // 25 pets
+				if (state.petArray === undefined) {
 					$('#no-results-found').removeClass('hidden');
 					$('#sadcat-pic').removeClass('hidden');
+				} else {
+					displayPetData(state.petArray);
 				}
-
-				else {
-
-					for(var i=0; i < petArray.length; i++) {
-						var currentPet = petArray[i];
-
-						if (currentPet.media.photos) {
-
-							const currentPetPic = currentPet.media.photos.photo[2].$t;
-							const currentPetName = currentPet.name.$t;
-							const currentPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : state.breedChoice;
-							const currentPetAge = currentPet.age.$t;
-							let currentPetGender = currentPet.sex.$t;
-							let currentPetSize = currentPet.size.$t;
-
-							var petElement = $('#model-pet').find('.pet').clone();
-							petElement.attr('id', i);
-
-							if (currentPetGender === 'M') {
-								currentPetGender = 'Male';
-							}
-							else if (currentPetGender === "F") {
-								currentPetGender = 'Female';
-							}
-							else if (currentPetGender === "U") {
-								currentPetGender = "Gender not listed";
-							}
-
-							if (currentPetSize === 'S') {
-								currentPetSize = 'Small';
-							}
-							else if (currentPetSize === 'M') {
-								currentPetSize = 'Medium';
-							}
-							else if (currentPetSize === 'L') {
-								currentPetSize = 'Large';
-							}
-							else {
-								currentPetSize = 'Size not listed'
-							}
-
-							petElement.find('img').attr('src', currentPetPic);
-							petElement.find('.pet-name').text(currentPetName);
-							petElement.find('.pet-breed').text(currentPetBreed);
-							petElement.find('.pet-age').text(currentPetAge + ' |');
-							petElement.find('.pet-gender').text(currentPetGender + ' | ');
-							petElement.find('.pet-size').text(currentPetSize);
-
-							$('#pet-choices').append(petElement);
-						}
-					}
-				}
-				$(".modal-launcher, #modal-background, .modal-close").click(function () {
-					$("#modal-content, #modal-background").toggleClass("active");
-					var petIndex = $(this).attr('id');
-
-					if (petIndex !== 'modal-close') {
-						let currentPet = petArray[petIndex];
-						let clickedPetPic = currentPet.media.photos.photo[2].$t;
-						let clickedPetName = currentPet.name.$t;
-						let clickedPetAge = currentPet.age.$t;
-						let clickedPetGender = currentPet.sex.$t;
-						let clickedPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : state.breedChoice;
-						let clickedPetSize = currentPet.size.$t;
-						let clickedPetDescription = currentPet.description.$t;
-
-						if (clickedPetGender === 'M') {
-							clickedPetGender = 'Male';
-						}
-						else if (clickedPetGender === 'F') {
-							clickedPetGender = "Female";
-						}
-						else { 
-							clickedPetGender = "Gender not listed";
-						}
-
-						if (clickedPetSize === 'S') {
-							clickedPetSize = 'Small';
-						}
-						else if (clickedPetSize === 'M') {
-							clickedPetSize = 'Medium';
-						}
-						else if (clickedPetSize === 'L') {
-							clickedPetSize = 'Large';
-						}
-						else {
-							clickedPetSize = 'Size not listed'
-						}
-
-						$('#modal-content').find('.pet-name').text(clickedPetName);
-						$('.modal-pet-pic').attr('src', clickedPetPic);
-						$('#modal-pet-age').text(clickedPetAge);
-						$('#modal-pet-gender').text(clickedPetGender);
-						$('#modal-pet-breed').text(clickedPetBreed);
-						$('#modal-pet-size').text(clickedPetSize);
-						$('#modal-pet-description').text(clickedPetDescription);
-
-						//Attempt to make arrow clickable. Not functioning properly
-
-						$('#left-arrow').click(function(event) {
-							currentPet = petArray[petIndex--];
-							clickedPetName = currentPet.name.$t;
-							clickedPetPic = currentPet.media.photos.photo[2].$t;
-							clickedPetAge = currentPet.age.$t;
-							clickedPetGender = currentPet.sex.$t;
-							clickedPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : state.breedChoice;
-							clickedPetSize = currentPet.size.$t;
-							clickedPetDescription = currentPet.description.$t;
-
-							$('#modal-pet-name').text(clickedPetName);
-							$('.modal-pet-pic').attr('src', clickedPetPic);
-							$('#modal-pet-age').text(clickedPetAge);
-							$('#modal-pet-gender').text(clickedPetGender);
-							$('#modal-pet-breed').text(clickedPetBreed);
-							$('#modal-pet-size').text(clickedPetSize);
-							$('#modal-pet-description').text(clickedPetDescription);
-						})
-					}
-				});	
 			},
 			error: function(request, error) {
 				console.log('error', request);
@@ -175,6 +61,108 @@ $(document).ready(function() {
 	}
 });
 
+// This opens modal + sets the modal data
+$('#pet-choices').on('click', '.modal-launcher', function(event) {
+	$("#modal-content, #modal-background").addClass("active");
+	var petIndex = $(this).attr('id');
+	state.clickedPetIndex=petIndex;
+
+	let currentPet = state.petArray[petIndex];
+	let clickedPetPic = currentPet.media.photos.photo[2].$t;
+	let clickedPetName = currentPet.name.$t;
+	let clickedPetAge = currentPet.age.$t;
+	let clickedPetGender = currentPet.sex.$t;
+	let clickedPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : state.breedChoice;
+	let clickedPetSize = currentPet.size.$t;
+	let clickedPetDescription = currentPet.description.$t;
+	clickedPetGender = getPetGenderFullString(clickedPetGender);
+	clickedPetSize = getPetSizeFullString(clickedPetSize);
+
+	$('#modal-content').find('.pet-name').text(clickedPetName);
+	$('.modal-pet-pic').attr('src', clickedPetPic);
+	$('#modal-pet-age').text(clickedPetAge);
+	$('#modal-pet-gender').text(clickedPetGender);
+	$('#modal-pet-breed').text(clickedPetBreed);
+	$('#modal-pet-size').text(clickedPetSize);
+	$('#modal-pet-description').text(clickedPetDescription);
+});
+
+// This closes the modal
+$("#modal-background, .modal-close").click(function () {
+	$("#modal-content, #modal-background").removeClass("active");
+});
+
+
+$('#left-arrow').click(function(event) {
+	console.log("leftArrow Clicked")
+	//state.clickedPetIndex
+
+})
+$('#right-arrow').click(function(event) {
+	console.log("rigtArrow Clicked")
+	//state.clickedPetIndex
+
+})
+
+
+function displayPetData(petArray){
+	for(var i=0; i < petArray.length; i++) {
+		var currentPet = petArray[i];
+		if (currentPet.media.photos) {
+			const currentPetPic = currentPet.media.photos.photo[2].$t;
+			const currentPetName = currentPet.name.$t;
+			const currentPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : state.breedChoice;
+			const currentPetAge = currentPet.age.$t;
+			let currentPetGender = currentPet.sex.$t;
+			let currentPetSize = currentPet.size.$t;
+
+			var petElement = $('#model-pet').find('.pet').clone();
+			petElement.attr('id', i);
+
+			currentPetGender = getPetGenderFullString(currentPetGender);
+			currentPetSize = getPetSizeFullString(currentPetSize);
+
+			petElement.find('img').attr('src', currentPetPic);
+			petElement.find('.pet-name').text(currentPetName);
+			petElement.find('.pet-breed').text(currentPetBreed);
+			petElement.find('.pet-age').text(currentPetAge + ' |');
+			petElement.find('.pet-gender').text(currentPetGender + ' | ');
+			petElement.find('.pet-size').text(currentPetSize);
+
+			$('#pet-choices').append(petElement);
+		}
+	}
+}
+
+
+function getPetGenderFullString(currentPetGender){
+	if (currentPetGender === 'M') {
+		return 'Male';
+	}
+	else if (currentPetGender === "F") {
+		return 'Female';
+	}
+	else if (currentPetGender === "U") {
+		return "Gender not listed";
+	}
+}
+
+function getPetSizeFullString(currentPetSize){
+	if (currentPetSize === 'S') {
+		return 'Small';
+	}
+	else if (currentPetSize === 'M') {
+		return 'Medium';
+	}
+	else if (currentPetSize === 'L') {
+		return 'Large';
+	}
+	else {
+		return 'Size not listed'
+	}
+}
+
+
 //Things to fix
 
 // Having animals show up on map
@@ -182,19 +170,18 @@ $(document).ready(function() {
 // Handle clickable arrows to change pet in modal (line 150)
 // Prevent modal from scrolling
 
-//FIXED 
+//FIXED
 
-// Change animals to dropdown 
-// The model (page 3) when you click on animals 
-// Fix responsive design 
-// Change M/F and S/M/L to Male/Female and small/med./large 
+// Change animals to dropdown
+// The model (page 3) when you click on animals
+// Fix responsive design
+// Change M/F and S/M/L to Male/Female and small/med./large
 // Style modal
 // Search by gender
 // Search by breed
 // Fix quality of images
 // Make x button in modal responsive
 // Handle no results found
-
 
 
 
