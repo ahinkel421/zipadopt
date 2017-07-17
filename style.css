@@ -65,11 +65,18 @@ footer{
 }
 
 #first-search-button {
-	width: 75px;
+	width: 85px;
 	height: 35px;
 	border-radius: 2px;
 	font-size: 20px;
 	cursor: pointer;
+	color: rgb(5, 37, 102);
+	font-family: 'Crimson Text', serif;
+}
+
+#first-search-button:hover {
+	background-color: rgb(5, 37, 102);
+	color: white;
 }
 
 #footer {
@@ -126,6 +133,28 @@ footer{
 #nav-button {
 	height: 30px;
 	font-size: 15px;
+}
+
+#no-results-found {
+	font-weight: normal;
+	color: rgb(239, 226, 195);
+	width: 75%;
+	margin: 175px auto;
+	font-size: 50px;
+}
+
+#search-again {
+	color: #c7e5ff;
+	cursor: pointer;
+}
+
+#search-again:hover {
+	text-decoration: underline;
+}
+
+#sadcat-pic {
+	width: 70%;
+	margin-left: 100px; 
 }
 
 #pet-choices {
@@ -199,9 +228,117 @@ footer{
 	color: rgb(239, 226, 195);
 }
 
+/*styles for modal*/
+
+#modal-background {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	opacity: .50;
+	-webkit-opacity: .5;
+	-moz-opacity: .5;
+	filter: alpha(opacity=50);
+	z-index: 1000;
+}
+
+#modal-content {
+	background-color: rgb(49, 65, 99);
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	box-shadow: 0 0 20px 0 #222;
+	-webkit-box-shadow: 0 0 20px 0 #222;
+	-moz-box-shadow: 0 0 20px 0 #222;
+	display: none;
+	margin: 200px auto;
+	padding: 10px;
+	position: relative;
+	width: 65%;
+	max-width: 1000px;
+	z-index: 1000;
+}
+
+#xbutton {
+	width: 3%;
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	cursor: pointer;
+}
+
+#left-arrow {
+	width: 4%;
+	position: absolute;
+	cursor: pointer;
+	margin: auto;
+	top: 0; 
+	bottom: 0;
+	left: 15px;
+	float: left;
+}
+
+#right-arrow {
+	width: 4%;
+	position: absolute;
+	cursor: pointer;
+	margin: auto;
+	top: 0; 
+	bottom: 0;
+	right: 15px;
+}
+
+#modal-pet-name {
+	font-size: 50px;
+}
+
+.modal-pet-pic {
+	margin: 50px auto;
+	display: block;
+	width: 60%;
+}
+
+#modal-pet-info {
+	color: rgb(239, 226, 195);
+	font-size: 20px;
+	list-style: none;
+}
+
+#description-header {
+	font-weight: normal;
+	font-size: 45px;
+	color: #c68b81;
+}
+
+#modal-pet-description {
+	width: 90%;
+	text-align: center;
+	position: relative;
+	margin: 30px auto;
+	color: #c68b81;
+	font-size: 22px;
+	height: 250px;
+	border: 1px solid rgb(239, 226, 195);
+	overflow: auto;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+#modal-background.active, #modal-content.active {
+	display: block;
+}
+
 @media (min-width: 1500px) {
 	.pet {
 		width: 25%;
+	}
+
+	#sadcat-pic {
+		width: 60%;
+		margin-left: 150px;
 	}
 }
 
@@ -263,9 +400,8 @@ footer{
 		position: fixed;
 	}
 
-/*??? not working */
 	#xbutton {
-		width: 5%;
+		width: 6%;
 	}
 }
 
@@ -281,100 +417,12 @@ footer{
 	.pet {
 		width: 90%;
 	}
+
+	#sadcat-pic {
+		margin-left: 70px;
+	}
 }
 
-/*styles for modal*/
 
-#modal-background {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: white;
-	opacity: .50;
-	-webkit-opacity: .5;
-	-moz-opacity: .5;
-	filter: alpha(opacity=50);
-	z-index: 1000;
-}
-
-#modal-content {
-	background-color: rgb(49, 65, 99);
-	border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	box-shadow: 0 0 20px 0 #222;
-	-webkit-box-shadow: 0 0 20px 0 #222;
-	-moz-box-shadow: 0 0 20px 0 #222;
-	display: none;
-	margin: 200px auto;
-	padding: 10px;
-	position: relative;
-	width: 65%;
-	max-width: 1000px;
-	z-index: 1000;
-}
-
-#xbutton {
-	width: 2%;
-	position: absolute;
-	right: 15px;
-	top: 15px;
-	cursor: pointer;
-}
-
-#left-arrow {
-	width: 4%;
-	position: absolute;
-	cursor: pointer;
-	margin: auto;
-	top: 0; 
-	bottom: 0;
-	left: 15px;
-	float: left;
-}
-
-#right-arrow {
-	width: 4%;
-	position: absolute;
-	cursor: pointer;
-	margin: auto;
-	top: 0; 
-	bottom: 0;
-	right: 15px;
-}
-
-#modal-pet-name {
-	display: block;
-	font-size: 50px;
-	clear: left;
-}
-
-.modal-pet-pic {
-	margin: 50px auto;
-	display: block;
-	width: 60%;
-}
-
-#modal-pet-info {
-	color: rgb(239, 226, 195);
-	font-size: 20px;
-	list-style: none;
-}
-
-#modal-pet-description {
-	width: 90%;
-	text-align: center;
-	position: relative;
-	margin: 30px auto;
-	color: #c68b81;
-	font-size: 22px;
-}
-
-#modal-background.active, #modal-content.active {
-	display: block;
-}
 
 

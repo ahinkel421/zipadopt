@@ -16,25 +16,15 @@ $(document).ready(function() {
 	});
 
 	$('#nav-form').submit(function(event) {
-		event.preventDefault();
+		// event.preventDefault();
 		state.animalChoice = $('#nav-animal-choice').val();
 		state.breedChoice = $('#nav-breed-choice').val();
 		state.sizeChoice = $('#nav-size-choice').val();
+		console.log(state.sizeChoice);
+		getDataFromApi(state);
 	});
 
-
-
-	//Tried, but isn't working ???
-
-	// $('#nav-form').submit(function(event) {
-	// 	event.preventDefault();
-	// 	let navAnimalChoice = $('#nav-animal-choice').val();
-	// 	let navBreedChoice = $('#nav-breed-choice').val();
-	// 	console.log(navAnimalChoice);
-	// 	getDataFromApi(navAnimalChoice);
-	// })
-
-	$('#nav-header').click(function(event) {
+	$('#nav-header, #search-again').click(function(event) {
 		location.reload();
 	});
 	function getDataFromApi(state) {
@@ -54,51 +44,60 @@ $(document).ready(function() {
 
 				const petArray = data.petfinder.pets.pet;
 
-				for(var i=0; i < petArray.length; i++) {
-					var currentPet = petArray[i];
-					if (currentPet.media.photos) {
+				if (petArray === undefined) {
+					$('#no-results-found').removeClass('hidden');
+					$('#sadcat-pic').removeClass('hidden');
+				}
 
-						const currentPetPic = currentPet.media.photos.photo[2].$t;
-						const currentPetName = currentPet.name.$t;
-						const currentPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : state.breedChoice;
-						const currentPetAge = currentPet.age.$t;
-						let currentPetGender = currentPet.sex.$t;
-						let currentPetSize = currentPet.size.$t;
+				else {
 
-						var petElement = $('#model-pet').find('.pet').clone();
-						petElement.attr('id', i);
+					for(var i=0; i < petArray.length; i++) {
+						var currentPet = petArray[i];
 
-						if (currentPetGender === 'M') {
-							currentPetGender = 'Male';
-						}
-						else if (currentPetGender === "F") {
-							currentPetGender = 'Female';
-						}
-						else if (currentPetGender === "U") {
-							currentPetGender = "Unknown";
-						}
+						if (currentPet.media.photos) {
 
-						if (currentPetSize === 'S') {
-							currentPetSize = 'Small';
-						}
-						else if (currentPetSize === 'M') {
-							currentPetSize = 'Medium';
-						}
-						else if (currentPetSize === 'L') {
-							currentPetSize = 'Large';
-						}
-						else {
-							currentPetSize = 'Size not listed'
-						}
+							const currentPetPic = currentPet.media.photos.photo[2].$t;
+							const currentPetName = currentPet.name.$t;
+							const currentPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : state.breedChoice;
+							const currentPetAge = currentPet.age.$t;
+							let currentPetGender = currentPet.sex.$t;
+							let currentPetSize = currentPet.size.$t;
 
-						petElement.find('img').attr('src', currentPetPic);
-						petElement.find('.pet-name').text(currentPetName);
-						petElement.find('.pet-breed').text(currentPetBreed);
-						petElement.find('.pet-age').text(currentPetAge + ' |');
-						petElement.find('.pet-gender').text(currentPetGender + ' | ');
-						petElement.find('.pet-size').text(currentPetSize);
+							var petElement = $('#model-pet').find('.pet').clone();
+							petElement.attr('id', i);
 
-						$('#pet-choices').append(petElement);
+							if (currentPetGender === 'M') {
+								currentPetGender = 'Male';
+							}
+							else if (currentPetGender === "F") {
+								currentPetGender = 'Female';
+							}
+							else if (currentPetGender === "U") {
+								currentPetGender = "Gender not listed";
+							}
+
+							if (currentPetSize === 'S') {
+								currentPetSize = 'Small';
+							}
+							else if (currentPetSize === 'M') {
+								currentPetSize = 'Medium';
+							}
+							else if (currentPetSize === 'L') {
+								currentPetSize = 'Large';
+							}
+							else {
+								currentPetSize = 'Size not listed'
+							}
+
+							petElement.find('img').attr('src', currentPetPic);
+							petElement.find('.pet-name').text(currentPetName);
+							petElement.find('.pet-breed').text(currentPetBreed);
+							petElement.find('.pet-age').text(currentPetAge + ' |');
+							petElement.find('.pet-gender').text(currentPetGender + ' | ');
+							petElement.find('.pet-size').text(currentPetSize);
+
+							$('#pet-choices').append(petElement);
+						}
 					}
 				}
 				$(".modal-launcher, #modal-background, .modal-close").click(function () {
@@ -122,7 +121,7 @@ $(document).ready(function() {
 							clickedPetGender = "Female";
 						}
 						else { 
-							clickedPetGender = "Unknown";
+							clickedPetGender = "Gender not listed";
 						}
 
 						if (clickedPetSize === 'S') {
@@ -145,6 +144,27 @@ $(document).ready(function() {
 						$('#modal-pet-breed').text(clickedPetBreed);
 						$('#modal-pet-size').text(clickedPetSize);
 						$('#modal-pet-description').text(clickedPetDescription);
+
+						//Attempt to make arrow clickable. Not functioning properly
+
+						$('#left-arrow').click(function(event) {
+							currentPet = petArray[petIndex--];
+							clickedPetName = currentPet.name.$t;
+							clickedPetPic = currentPet.media.photos.photo[2].$t;
+							clickedPetAge = currentPet.age.$t;
+							clickedPetGender = currentPet.sex.$t;
+							clickedPetBreed = currentPet.breeds.breed[0]? currentPet.breeds.breed[0].$t : state.breedChoice;
+							clickedPetSize = currentPet.size.$t;
+							clickedPetDescription = currentPet.description.$t;
+
+							$('#modal-pet-name').text(clickedPetName);
+							$('.modal-pet-pic').attr('src', clickedPetPic);
+							$('#modal-pet-age').text(clickedPetAge);
+							$('#modal-pet-gender').text(clickedPetGender);
+							$('#modal-pet-breed').text(clickedPetBreed);
+							$('#modal-pet-size').text(clickedPetSize);
+							$('#modal-pet-description').text(clickedPetDescription);
+						})
 					}
 				});	
 			},
@@ -158,12 +178,9 @@ $(document).ready(function() {
 //Things to fix
 
 // Having animals show up on map
-// Handle no results found
-// (tried) Get 'new search' functioning
-// Handle clickable arrows to change pet in modal
+// Get 'new search' functioning (line 18)
+// Handle clickable arrows to change pet in modal (line 150)
 // Prevent modal from scrolling
-// Can't change width of x button in media query
-// When maximizing page, modal doesn't center
 
 //FIXED 
 
@@ -175,6 +192,8 @@ $(document).ready(function() {
 // Search by gender
 // Search by breed
 // Fix quality of images
+// Make x button in modal responsive
+// Handle no results found
 
 
 
