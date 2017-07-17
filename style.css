@@ -258,6 +258,8 @@ footer{
 	padding: 10px;
 	position: relative;
 	width: 65%;
+	height: 50%;
+	overflow: auto;
 	max-width: 1000px;
 	z-index: 1000;
 }

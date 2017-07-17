@@ -66,8 +66,37 @@ $('#pet-choices').on('click', '.modal-launcher', function(event) {
 	$("#modal-content, #modal-background").addClass("active");
 	var petIndex = $(this).attr('id');
 	state.clickedPetIndex=petIndex;
+	displayPetModal();
+	
+});
 
-	let currentPet = state.petArray[petIndex];
+// This closes the modal
+$("#modal-background, .modal-close").click(function () {
+	$("#modal-content, #modal-background").removeClass("active");
+});
+
+
+$('#left-arrow').click(function(event) {
+	if (state.clickedPetIndex > 0) {
+		state.clickedPetIndex--;
+	}
+	else {
+		state.clickedPetIndex = 24;
+	}
+	displayPetModal();
+})
+$('#right-arrow').click(function(event) {
+	if (state.clickedPetIndex < 24) {
+		state.clickedPetIndex++;
+	}
+	else {
+		state.clickedPetIndex = 0;
+	}
+	displayPetModal();
+})
+
+function displayPetModal() {
+	let currentPet = state.petArray[state.clickedPetIndex];
 	let clickedPetPic = currentPet.media.photos.photo[2].$t;
 	let clickedPetName = currentPet.name.$t;
 	let clickedPetAge = currentPet.age.$t;
@@ -85,25 +114,7 @@ $('#pet-choices').on('click', '.modal-launcher', function(event) {
 	$('#modal-pet-breed').text(clickedPetBreed);
 	$('#modal-pet-size').text(clickedPetSize);
 	$('#modal-pet-description').text(clickedPetDescription);
-});
-
-// This closes the modal
-$("#modal-background, .modal-close").click(function () {
-	$("#modal-content, #modal-background").removeClass("active");
-});
-
-
-$('#left-arrow').click(function(event) {
-	console.log("leftArrow Clicked")
-	//state.clickedPetIndex
-
-})
-$('#right-arrow').click(function(event) {
-	console.log("rigtArrow Clicked")
-	//state.clickedPetIndex
-
-})
-
+}
 
 function displayPetData(petArray){
 	for(var i=0; i < petArray.length; i++) {
@@ -167,7 +178,6 @@ function getPetSizeFullString(currentPetSize){
 
 // Having animals show up on map
 // Get 'new search' functioning (line 18)
-// Handle clickable arrows to change pet in modal (line 150)
 // Prevent modal from scrolling
 
 //FIXED
@@ -182,6 +192,7 @@ function getPetSizeFullString(currentPetSize){
 // Fix quality of images
 // Make x button in modal responsive
 // Handle no results found
+// Handle clickable arrows to change pet in modal 
 
 
 
