@@ -15,7 +15,7 @@ footer{
 	width: 66%;
 	display:inline-block;
 	position: fixed;
-	height:230px;
+	height: 230px;
 	bottom: 0;
 }
 
@@ -277,8 +277,7 @@ footer{
 	position: absolute;
 	cursor: pointer;
 	margin: auto;
-	top: 0; 
-	bottom: 0;
+	top: 370px;
 	left: 15px;
 	float: left;
 }
@@ -288,9 +287,16 @@ footer{
 	position: absolute;
 	cursor: pointer;
 	margin: auto;
-	top: 0; 
-	bottom: 0;
+	top: 370px;
 	right: 15px;
+}
+
+#left-arrow:hover {
+	width: 4.5%
+}
+
+#right-arrow:hover {
+	width: 4.5%
 }
 
 #modal-pet-name {

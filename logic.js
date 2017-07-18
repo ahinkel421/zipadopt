@@ -2,11 +2,63 @@ var state = {
 	animalChoice: '',
 	breedChoice: '',
 	sizeChoice: '',
+	locationChoice: '',
 	petArray:[],
-	clickedPetIndex:-1
+	clickedPetIndex:-1,
+	userLocation: {},
+	// animalData: [],
+	markers: []
 };
 
+
+
 $(document).ready(function() {
+
+	var geocoder;
+	var map;
+
+	function initialize() {
+		geocoder = new google.maps.Geocoder();
+		// var lat = lat of user input
+		// var lng = lng of user input
+		var latlng = new google.maps.LatLng(51.531703, -0.124310);
+		var mapOptions = {
+			zoom: 14,
+			center: latlng,
+			zoomControl: true,
+			zoomControlOptions: {
+				position: google.maps.ControlPosition.TOP_LEFT
+			},
+		};
+		map = new google.maps.Map(document.getElementById('map'), mapOptions);
+	}
+
+	function cleanMarkers(){
+		state.markers=[];
+	}
+
+	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+		infoWindow.setPosition(pos);
+		infoWindow.setContent(browserHasGeolocation ?
+			'Error: The Geolocation service failed.' :
+			'Error: Your browser doesn\'t support geolocation.');
+	};
+
+	function geocodeSearch(state) {
+		var addressSearch = state.locationChoice;
+		geocoder.geocode( { 'address': addressSearch}, function(results, status) {
+			if (status == 'OK') {
+				map.setCenter(results[0].geometry.location);
+				state.userLocation.lat = results[0].geometry.location.lat();
+				state.userLocation.lng = results[0].geometry.location.lng();
+			} 
+			else{
+				//display all pets
+			}
+		});
+	}
+
+	
 
 	$('#first-form').submit(function(event) {
 		event.preventDefault();
@@ -15,7 +67,11 @@ $(document).ready(function() {
 		state.animalChoice = $('.js-animal-choice').val();
 		state.breedChoice = $('.js-breed-choice').val();
 		state.sizeChoice = $('#size-selector').val();
+		state.locationChoice = $('.js-zip-choice').val();
 		getDataFromApi(state);
+		cleanMarkers();
+		initialize();
+		geocodeSearch(state);
 	});
 
 	// not working -> ?
@@ -42,7 +98,8 @@ $(document).ready(function() {
 				location: '20855',
 				animal: state.animalChoice,
 				breed: state.breedChoice,
-				size: state.sizeChoice
+				size: state.sizeChoice,
+				location: state.locationChoice
 			},
 			dataType: 'jsonp',
 			success: function(data) {
@@ -126,6 +183,8 @@ function displayPetData(petArray){
 			const currentPetAge = currentPet.age.$t;
 			let currentPetGender = currentPet.sex.$t;
 			let currentPetSize = currentPet.size.$t;
+			let currentPetAddress = currentPet.contact.address1.$t;
+			console.log(currentPetAddress);
 
 			var petElement = $('#model-pet').find('.pet').clone();
 			petElement.attr('id', i);
@@ -174,11 +233,17 @@ function getPetSizeFullString(currentPetSize){
 }
 
 
-//Things to fix
+// Things to fix
 
-// Having animals show up on map
-// Get 'new search' functioning (line 18)
-// Prevent modal from scrolling
+// If user doesn't search address, search all pets
+
+// Get 'new search' functioning 
+// Prevent modal from scrolling (optional)
+
+// If they have an address:
+	// Get geocode of address (GeoCoder)
+	// Show that latLong using a marker.
+	// Hover over pets, highlights marker on map
 
 //FIXED
 
@@ -193,6 +258,16 @@ function getPetSizeFullString(currentPetSize){
 // Make x button in modal responsive
 // Handle no results found
 // Handle clickable arrows to change pet in modal 
+// Center the map on the user location
+// Getting the address of the pet.
+
+//READ THESE 
+
+// https://taypsl.github.io/explore-the-wikihood/
+// https://github.com/taypsl/explore-the-wikihood
+
+
+
 
 
 
