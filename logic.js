@@ -5,16 +5,16 @@ var state = {
 	locationChoice: '',
 	petArray:[],
 	clickedPetIndex:-1,
-	userLocation: {},
 	markers: []
 };
+var geocoder;
+var map;
 
 
 
 $(document).ready(function() {
 
-	var geocoder;
-	var map;
+
 
 	function initialize() {
 		geocoder = new google.maps.Geocoder();
@@ -34,6 +34,16 @@ $(document).ready(function() {
 		state.markers=[];
 	}
 
+	function centerMapToLocation(state) {
+		var addressSearch = state.locationChoice;
+
+		getLatLngFromAddressAsync(addressSearch, function(location) {
+				map.setCenter(location);
+				map.setZoom(9);
+			} )	
+	}
+
+
 	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 		infoWindow.setPosition(pos);
 		infoWindow.setContent(browserHasGeolocation ?
@@ -41,25 +51,6 @@ $(document).ready(function() {
 			'Error: Your browser doesn\'t support geolocation.');
 	};
 
-	function geocodeSearch(state) {
-		var addressSearch = state.locationChoice;
-
-		if (!addressSearch) {
-			return;
-		}
-
-		geocoder.geocode( { 'address': addressSearch}, function(results, status) {
-			if (status == 'OK') {
-				map.setCenter(results[0].geometry.location);
-				map.setZoom(14);
-				state.userLocation.lat = results[0].geometry.location.lat();
-				state.userLocation.lng = results[0].geometry.location.lng();
-			} 
-			else {
-				displayError();
-			}
-		});
-	}
 
 	function displayError() {
 		$('#no-results-found').removeClass('hidden');
@@ -79,7 +70,7 @@ $(document).ready(function() {
 		getDataFromApi(state);
 		cleanMarkers();
 		initialize();
-		geocodeSearch(state);
+		centerMapToLocation(state);
 	});
 
 	// not working -> ?
@@ -105,8 +96,7 @@ $(document).ready(function() {
 			size: state.sizeChoice,
 			'location': 'united states'
 		}
-		console.log(state.locationChoice);
-
+	
 		if (state.locationChoice !== '') {
 			requestData.location = state.locationChoice;
 		}
@@ -117,7 +107,7 @@ $(document).ready(function() {
 			data: requestData,
 			dataType: 'jsonp',
 			success: function(data) {
-				// console.log(data);
+		
 				if (data.petfinder.pets === undefined) {
 					displayError(); 
 					return
@@ -143,6 +133,23 @@ $('#pet-choices').on('click', '.modal-launcher', function(event) {
 	state.clickedPetIndex=petIndex;
 	displayPetModal();
 	
+});
+
+// This 
+$('#pet-choices').on('mouseover', '.pet', function(event) {
+	var petIndex = $(this).attr('id');
+	var marker = state.markers[petIndex]
+	if(marker){
+		marker.setIcon('images/icn_orange.png');
+	}
+});
+
+$('#pet-choices').on('mouseout', '.pet', function(event) {
+	var petIndex = $(this).attr('id');
+	var marker = state.markers[petIndex]
+	if(marker){
+		marker.setIcon('images/icn_blue.png');
+	}
 });
 
 // This closes the modal
@@ -190,10 +197,25 @@ function displayPetModal() {
 	$('#modal-pet-size').text(clickedPetSize);
 	$('#modal-pet-description').text(clickedPetDescription);
 }
+	
+	function createMarker(latlon, currentPetName, index){
+
+		var marker = new google.maps.Marker({
+			position: latlon,
+			map: map,
+			title: currentPetName,
+			icon: 'images/icn_blue.png'
+		});
+		// google.maps.event.addListener(marker, 'click', function() {
+		// 	this.infowindow.setContent(marker.contentString);
+		// 	this.infowindow.open(map, this);
+		// })
+		state.markers[index]=marker
+	}
 
 function displayPetData(petArray){
-	for(var i=0; i < petArray.length; i++) {
-		var currentPet = petArray[i];
+	petArray.forEach(function(currentPet, index){
+		//var currentPet = petArray[i];
 		if (currentPet.media.photos) {
 			const currentPetPic = currentPet.media.photos.photo[2].$t;
 			const currentPetName = currentPet.name.$t;
@@ -201,10 +223,18 @@ function displayPetData(petArray){
 			const currentPetAge = currentPet.age.$t;
 			let currentPetGender = currentPet.sex.$t;
 			let currentPetSize = currentPet.size.$t;
-			let currentPetAddress = currentPet.contact.address1.$t;
+			let currentPetLocation = currentPet.contact.address1.$t || currentPet.contact.city.$t;
+
+			var petLocationFinder = getLatLngFromAddressAsync.bind(null, currentPetLocation, function(location) {
+				createMarker(location, currentPetName, index);
+			})	
+
+			//slow down querying google apif or locations. 
+		    setTimeout(petLocationFinder, index*650);
+		
 
 			var petElement = $('#model-pet').find('.pet').clone();
-			petElement.attr('id', i);
+			petElement.attr('id', index);
 
 			currentPetGender = getPetGenderFullString(currentPetGender);
 			currentPetSize = getPetSizeFullString(currentPetSize);
@@ -218,9 +248,19 @@ function displayPetData(petArray){
 
 			$('#pet-choices').append(petElement);
 		}
-	}
+	})
 }
 
+function getLatLngFromAddressAsync(addressSearch, callback) {
+
+	if (!addressSearch) { return; }
+	geocoder.geocode( { 'address': addressSearch}, function(results, status) {
+
+		if (status == 'OK') {
+			callback(results[0].geometry.location)
+		} 
+	});
+}
 
 function getPetGenderFullString(currentPetGender){
 	if (currentPetGender === 'M') {
