@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 		getLatLngFromAddressAsync(addressSearch, function(location) {
 				map.setCenter(location);
-				map.setZoom(9);
+				map.setZoom(7);
 			});
 	}
 
