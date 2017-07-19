@@ -168,7 +168,7 @@ footer{
 	display:inline-block;
 	position: fixed;
 	top: 77px;
-	bottom: 80px;
+	bottom: 24px;
 	overflow: auto;
 }
 
@@ -446,7 +446,3 @@ footer{
 		margin-left: 70px;
 	}
 }
-
-
-
-
