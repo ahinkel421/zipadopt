@@ -36,8 +36,8 @@
 					<option>L</option>
 				</select>
 			</label>
-			<label class="page-one-label">Zipcode:
-				<input type="zip-search" placeholder="12345" class="page-one-input js-zip-choice">
+			<label class="page-one-label zipdcode-search">Location:
+				<input type="zip-search" placeholder="Ex: Somerville, NJ" class="page-one-input js-zip-choice">
 			</label>
 			<button id="first-search-button">Search</button>
 		</form>
@@ -69,7 +69,14 @@
 		<section id="pet-choices">
 			<h2 id="no-results-found" class="hidden">Sorry! We couldn't find any pets that matched your search. Please try <span id="search-again">searching again.</span></h2>
 			<img src="sadcat.jpg" class="hidden" id="sadcat-pic">
-
+			<div class="hidden" id="address-instructions-box">
+				<h4 id="address-instructions">*Locations may be entered in one of the following ways: </h4>
+				<ul>
+					<li>5 digit ZIP code e.g. "08876"</li>
+					<li>Postal code (with space) e.g. "k8p 3h2"</li>
+					<li>Town, State/Province combination (2 letter abbr.) e.g. "Somerville, NJ" or "Vancouver, BC"</li>
+				</ul>
+			</div>
 			<div class="hidden" id="model-pet">
 				<div class="pet modal-launcher" id="">
 					<img src="#" class="pet-pic">

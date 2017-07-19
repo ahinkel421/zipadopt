@@ -38,7 +38,7 @@ footer{
 #greeting {
 	font-size: 35px;
 	width: 45%;
-	margin: 30px auto 130px auto;
+	margin: 30px auto 100px auto;
 	color: rgb(239, 226, 195);
 	font-family: 'Crimson Text', serif;
 	text-align: center;
@@ -138,8 +138,8 @@ footer{
 #no-results-found {
 	font-weight: normal;
 	color: rgb(239, 226, 195);
-	width: 75%;
-	margin: 175px auto;
+	width: 65%;
+	margin: 95px auto;
 	font-size: 50px;
 }
 
@@ -155,6 +155,19 @@ footer{
 #sadcat-pic {
 	width: 70%;
 	margin-left: 100px; 
+}
+
+#address-instructions-box {
+	margin: 130px 0 0 20px;
+}
+
+#address-instructions-box, #address-instructions {
+	font-weight: normal;
+	text-decoration: none;
+	font-size: 25px;
+	width: 85%;
+	color: rgb(239, 226, 195);
+	font-family: 'Crimson Text', serif;
 }
 
 #pet-choices {
@@ -350,20 +363,22 @@ footer{
 	}
 }
 
+@media (max-width: 1677px) {
+	.page-one-label {
+		display: block;
+		width: 80%;
+		margin: 20px auto;
+	}
+
+	.page-one-input {
+			display: block;
+			margin: 0 auto;
+	}
+}
+
 @media (max-width: 1300px) {
 	#page-one-header {
 		font-size: 70px;
-	}
-
-	.page-one-label {
-	display: block;
-	width: 80%;
-	margin: 20px auto;
-}
-
-	.page-one-input {
-		display: block;
-		margin: 0 auto;
 	}
 
 	#greeting {

@@ -18,9 +18,9 @@ $(document).ready(function() {
 
 	function initialize() {
 		geocoder = new google.maps.Geocoder();
-		var latlng = new google.maps.LatLng(51.531703, -0.124310);
+		var latlng = new google.maps.LatLng(40.648610, -101.942230);
 		var mapOptions = {
-			zoom: 14,
+			zoom: 4,
 			center: latlng,
 			zoomControl: true,
 			zoomControlOptions: {
@@ -43,19 +43,29 @@ $(document).ready(function() {
 
 	function geocodeSearch(state) {
 		var addressSearch = state.locationChoice;
+
+		if (!addressSearch) {
+			return;
+		}
+
 		geocoder.geocode( { 'address': addressSearch}, function(results, status) {
-			if (status == 'OK' || addressSearch === '') {
+			if (status == 'OK') {
 				map.setCenter(results[0].geometry.location);
+				map.setZoom(14);
 				state.userLocation.lat = results[0].geometry.location.lat();
 				state.userLocation.lng = results[0].geometry.location.lng();
 			} 
 			else {
-				$('#no-results-found').removeClass('hidden');
-				$('#sadcat-pic').removeClass('hidden');
+				displayError();
 			}
 		});
 	}
 
+	function displayError() {
+		$('#no-results-found').removeClass('hidden');
+		$('#sadcat-pic').removeClass('hidden');
+		$('#address-instructions-box').removeClass('hidden');
+	}
 	
 
 	$('#first-form').submit(function(event) {
@@ -87,65 +97,42 @@ $(document).ready(function() {
 	});
 
 	function getDataFromApi(state) {
+		var requestData = {
+			format: 'json',
+			key: 'fc1327e0ada9ec0e14f4de6009f2b8fa',
+			animal: state.animalChoice,
+			breed: state.breedChoice,
+			size: state.sizeChoice,
+			'location': 'united states'
+		}
+		console.log(state.locationChoice);
+
 		if (state.locationChoice !== '') {
-			$.ajax({
-				url: "https://api.petfinder.com/pet.find",
-				type: 'Get',
-				data: {
-					format: 'json',
-					key: 'fc1327e0ada9ec0e14f4de6009f2b8fa',
-					location: '20855',
-					animal: state.animalChoice,
-					breed: state.breedChoice,
-					size: state.sizeChoice,
-					location: state.locationChoice
-				},
-				dataType: 'jsonp',
-				success: function(data) {
-
-					state.petArray = data.petfinder.pets.pet; // 25 pets
-					console.log(data.petfinder.pets.pet);
-					if (state.petArray === undefined) {
-						$('#no-results-found').removeClass('hidden');
-						$('#sadcat-pic').removeClass('hidden');
-					} else {
-						displayPetData(state.petArray);
-					}
-				},
-				error: function(request, error) {
-					console.log('error', request);
-				}
-			});
+			requestData.location = state.locationChoice;
 		}
-		else {
-			$.ajax({
-				url: "https://api.petfinder.com/pet.find",
-				type: 'Get',
-				data: {
-					format: 'json',
-					key: 'fc1327e0ada9ec0e14f4de6009f2b8fa',
-					location: 'united states',
-					animal: state.animalChoice,
-					breed: state.breedChoice,
-					size: state.sizeChoice
-				},
-				dataType: 'jsonp',
-				success: function(data) {
 
-					state.petArray = data.petfinder.pets.pet; // 25 pets
-					console.log(data.petfinder.pets.pet);
-					if (state.petArray === undefined) {
-						$('#no-results-found').removeClass('hidden');
-						$('#sadcat-pic').removeClass('hidden');
-					} else {
-						displayPetData(state.petArray);
-					}
-				},
-				error: function(request, error) {
-					console.log('error', request);
+		$.ajax({
+			url: "https://api.petfinder.com/pet.find",
+			type: 'Get',
+			data: requestData,
+			dataType: 'jsonp',
+			success: function(data) {
+				// console.log(data);
+				if (data.petfinder.pets === undefined) {
+					displayError(); 
+					return
 				}
-			});
-		}
+				state.petArray = data.petfinder.pets.pet; // 25 pets
+				if (state.petArray === undefined) {
+					displayError();
+				} else {
+					displayPetData(state.petArray);
+				}
+			},
+			error: function(request, error) {
+				console.log('error', request);
+			}
+		});
 	}
 });
 
