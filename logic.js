@@ -6,7 +6,6 @@ var state = {
 	petArray:[],
 	clickedPetIndex:-1,
 	userLocation: {},
-	// animalData: [],
 	markers: []
 };
 
@@ -19,8 +18,6 @@ $(document).ready(function() {
 
 	function initialize() {
 		geocoder = new google.maps.Geocoder();
-		// var lat = lat of user input
-		// var lng = lng of user input
 		var latlng = new google.maps.LatLng(51.531703, -0.124310);
 		var mapOptions = {
 			zoom: 14,
@@ -47,13 +44,14 @@ $(document).ready(function() {
 	function geocodeSearch(state) {
 		var addressSearch = state.locationChoice;
 		geocoder.geocode( { 'address': addressSearch}, function(results, status) {
-			if (status == 'OK') {
+			if (status == 'OK' || addressSearch === '') {
 				map.setCenter(results[0].geometry.location);
 				state.userLocation.lat = results[0].geometry.location.lat();
 				state.userLocation.lng = results[0].geometry.location.lng();
 			} 
-			else{
-				//display all pets
+			else {
+				$('#no-results-found').removeClass('hidden');
+				$('#sadcat-pic').removeClass('hidden');
 			}
 		});
 	}
@@ -89,32 +87,65 @@ $(document).ready(function() {
 	});
 
 	function getDataFromApi(state) {
-		$.ajax({
-			url: "https://api.petfinder.com/pet.find",
-			type: 'Get',
-			data: {
-				format: 'json',
-				key: 'fc1327e0ada9ec0e14f4de6009f2b8fa',
-				location: '20855',
-				animal: state.animalChoice,
-				breed: state.breedChoice,
-				size: state.sizeChoice,
-				location: state.locationChoice
-			},
-			dataType: 'jsonp',
-			success: function(data) {
-				state.petArray = data.petfinder.pets.pet; // 25 pets
-				if (state.petArray === undefined) {
-					$('#no-results-found').removeClass('hidden');
-					$('#sadcat-pic').removeClass('hidden');
-				} else {
-					displayPetData(state.petArray);
+		if (state.locationChoice !== '') {
+			$.ajax({
+				url: "https://api.petfinder.com/pet.find",
+				type: 'Get',
+				data: {
+					format: 'json',
+					key: 'fc1327e0ada9ec0e14f4de6009f2b8fa',
+					location: '20855',
+					animal: state.animalChoice,
+					breed: state.breedChoice,
+					size: state.sizeChoice,
+					location: state.locationChoice
+				},
+				dataType: 'jsonp',
+				success: function(data) {
+
+					state.petArray = data.petfinder.pets.pet; // 25 pets
+					console.log(data.petfinder.pets.pet);
+					if (state.petArray === undefined) {
+						$('#no-results-found').removeClass('hidden');
+						$('#sadcat-pic').removeClass('hidden');
+					} else {
+						displayPetData(state.petArray);
+					}
+				},
+				error: function(request, error) {
+					console.log('error', request);
 				}
-			},
-			error: function(request, error) {
-				console.log('error', request);
-			}
-		});
+			});
+		}
+		else {
+			$.ajax({
+				url: "https://api.petfinder.com/pet.find",
+				type: 'Get',
+				data: {
+					format: 'json',
+					key: 'fc1327e0ada9ec0e14f4de6009f2b8fa',
+					location: 'united states',
+					animal: state.animalChoice,
+					breed: state.breedChoice,
+					size: state.sizeChoice
+				},
+				dataType: 'jsonp',
+				success: function(data) {
+
+					state.petArray = data.petfinder.pets.pet; // 25 pets
+					console.log(data.petfinder.pets.pet);
+					if (state.petArray === undefined) {
+						$('#no-results-found').removeClass('hidden');
+						$('#sadcat-pic').removeClass('hidden');
+					} else {
+						displayPetData(state.petArray);
+					}
+				},
+				error: function(request, error) {
+					console.log('error', request);
+				}
+			});
+		}
 	}
 });
 
@@ -184,7 +215,6 @@ function displayPetData(petArray){
 			let currentPetGender = currentPet.sex.$t;
 			let currentPetSize = currentPet.size.$t;
 			let currentPetAddress = currentPet.contact.address1.$t;
-			console.log(currentPetAddress);
 
 			var petElement = $('#model-pet').find('.pet').clone();
 			petElement.attr('id', i);
@@ -232,18 +262,21 @@ function getPetSizeFullString(currentPetSize){
 	}
 }
 
-
+//===============
 // Things to fix
+//===============
 
-// If user doesn't search address, search all pets
-
-// Get 'new search' functioning 
-// Prevent modal from scrolling (optional)
+// If user searches invalid address
+	//pet is undefined
+	//no results found not working anymore
 
 // If they have an address:
 	// Get geocode of address (GeoCoder)
 	// Show that latLong using a marker.
 	// Hover over pets, highlights marker on map
+
+// Get 'new search' functioning 
+// Prevent modal from scrolling (optional)
 
 //FIXED
 
@@ -260,6 +293,11 @@ function getPetSizeFullString(currentPetSize){
 // Handle clickable arrows to change pet in modal 
 // Center the map on the user location
 // Getting the address of the pet.
+
+//If location === '' do not ask api for location
+// If user searches invalid address
+	//pet is undefined
+	//no results found not working anymore
 
 //READ THESE 
 
