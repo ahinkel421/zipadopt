@@ -102,14 +102,6 @@ footer{
 	background-color: rgba(5, 37, 102, .5);
 }
 
-.nav-search {
-	display: inline-block;
-	width: 150px;
-	height: 30px;
-	margin: 0 3px;
-	font-size: 15px;
-}
-
 #nav-header {
 	text-shadow: 2px 2px #001d91;
 	color: #c7e5ff;
@@ -123,16 +115,17 @@ footer{
 	text-align: center;
 }
 
-#nav-form {
-	display: inline-block;
-	position: fixed;
-	right: 5px;
-	top: 25px;
-}
-
 #nav-button {
-	height: 30px;
-	font-size: 15px;
+	position: absolute;
+	right: 20px;
+	top: 25px;
+	height: 35px;
+	width: 15%;
+	font-size: 20px;
+	cursor: pointer;
+	color: rgb(5, 37, 102);
+	font-family: 'Crimson Text', serif;
+	background-color: rgb(239, 226, 195);
 }
 
 #no-results-found {
@@ -378,7 +371,8 @@ footer{
 
 @media (max-width: 1300px) {
 	#page-one-header {
-		font-size: 70px;
+		font-size: 120px;
+		width: 52%;
 	}
 
 	#greeting {
@@ -393,6 +387,11 @@ footer{
 
 @media (max-width: 900px) {
 
+	#page-one-header {
+		font-size: 100px;
+		width: 90%;
+	}
+
 	#navbar {
 		height: 4%;
 	}
@@ -406,15 +405,16 @@ footer{
 		width: 30%;
 	}
 
+	#nav-button {
+		width: 30%;
+		top: 10px;
+	}
+
 	.pet {
 		width: 50%;
 	}
 
 	#map-section {
-		display: none;
-	}
-
-	#nav-form {
 		display: none;
 	}
 
@@ -429,8 +429,9 @@ footer{
 }
 
 @media (max-width: 600px) {
+
 	#page-one-header {
-		font-size: 40px;
+		font-size: 80px;
 	}
 
 	#nav-form {

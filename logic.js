@@ -7,20 +7,17 @@ var state = {
 	clickedPetIndex:-1,
 	markers: []
 };
+
 var geocoder;
 var map;
 
-
-
 $(document).ready(function() {
-
-
 
 	function initialize() {
 		geocoder = new google.maps.Geocoder();
 		var latlng = new google.maps.LatLng(40.648610, -101.942230);
 		var mapOptions = {
-			zoom: 4,
+			zoom: 3,
 			center: latlng,
 			zoomControl: true,
 			zoomControlOptions: {
@@ -40,7 +37,7 @@ $(document).ready(function() {
 		getLatLngFromAddressAsync(addressSearch, function(location) {
 				map.setCenter(location);
 				map.setZoom(9);
-			} )	
+			});
 	}
 
 
@@ -73,17 +70,8 @@ $(document).ready(function() {
 		centerMapToLocation(state);
 	});
 
-	// not working -> ?
-	$('#nav-form').submit(function(event) {
-		event.preventDefault();
-		// state.animalChoice = $('#nav-animal-choice').val();
-		// state.breedChoice = $('#nav-breed-choice').val();
-		// state.sizeChoice = $('#nav-size-choice').val();
-		// getDataFromApi(state);
-	});
-
 	// This allows a new search.
-	$('#nav-header, #search-again').click(function(event) {
+	$('#nav-header, #search-again, #nav-button').click(function(event) {
 		location.reload();
 	});
 
@@ -135,15 +123,16 @@ $('#pet-choices').on('click', '.modal-launcher', function(event) {
 	
 });
 
-// This 
+// When hovering over pet, shows where they are on the map
 $('#pet-choices').on('mouseover', '.pet', function(event) {
 	var petIndex = $(this).attr('id');
 	var marker = state.markers[petIndex]
-	if(marker){
+	if(marker) {
 		marker.setIcon('images/icn_orange.png');
 	}
 });
 
+//Removes highlight on map when mouse leaves pet
 $('#pet-choices').on('mouseout', '.pet', function(event) {
 	var petIndex = $(this).attr('id');
 	var marker = state.markers[petIndex]
@@ -152,7 +141,7 @@ $('#pet-choices').on('mouseout', '.pet', function(event) {
 	}
 });
 
-// This closes the modal
+// Closes the modal
 $("#modal-background, .modal-close").click(function () {
 	$("#modal-content, #modal-background").removeClass("active");
 });
@@ -206,16 +195,12 @@ function displayPetModal() {
 			title: currentPetName,
 			icon: 'images/icn_blue.png'
 		});
-		// google.maps.event.addListener(marker, 'click', function() {
-		// 	this.infowindow.setContent(marker.contentString);
-		// 	this.infowindow.open(map, this);
-		// })
 		state.markers[index]=marker
 	}
 
 function displayPetData(petArray){
 	petArray.forEach(function(currentPet, index){
-		//var currentPet = petArray[i];
+
 		if (currentPet.media.photos) {
 			const currentPetPic = currentPet.media.photos.photo[2].$t;
 			const currentPetName = currentPet.name.$t;
@@ -229,10 +214,9 @@ function displayPetData(petArray){
 				createMarker(location, currentPetName, index);
 			})	
 
-			//slow down querying google apif or locations. 
+			//slows down querying google api for locations, avoiding limitations. 
 		    setTimeout(petLocationFinder, index*650);
 		
-
 			var petElement = $('#model-pet').find('.pet').clone();
 			petElement.attr('id', index);
 
@@ -248,14 +232,13 @@ function displayPetData(petArray){
 
 			$('#pet-choices').append(petElement);
 		}
-	})
+	});
 }
 
 function getLatLngFromAddressAsync(addressSearch, callback) {
 
 	if (!addressSearch) { return; }
 	geocoder.geocode( { 'address': addressSearch}, function(results, status) {
-
 		if (status == 'OK') {
 			callback(results[0].geometry.location)
 		} 
@@ -288,51 +271,4 @@ function getPetSizeFullString(currentPetSize){
 		return 'Size not listed'
 	}
 }
-
-//===============
-// Things to fix
-//===============
-
-// If user searches invalid address
-	//pet is undefined
-	//no results found not working anymore
-
-// If they have an address:
-	// Get geocode of address (GeoCoder)
-	// Show that latLong using a marker.
-	// Hover over pets, highlights marker on map
-
-// Get 'new search' functioning 
-// Prevent modal from scrolling (optional)
-
-//FIXED
-
-// Change animals to dropdown
-// The model (page 3) when you click on animals
-// Fix responsive design
-// Change M/F and S/M/L to Male/Female and small/med./large
-// Style modal
-// Search by gender
-// Search by breed
-// Fix quality of images
-// Make x button in modal responsive
-// Handle no results found
-// Handle clickable arrows to change pet in modal 
-// Center the map on the user location
-// Getting the address of the pet.
-
-//If location === '' do not ask api for location
-// If user searches invalid address
-	//pet is undefined
-	//no results found not working anymore
-
-//READ THESE 
-
-// https://taypsl.github.io/explore-the-wikihood/
-// https://github.com/taypsl/explore-the-wikihood
-
-
-
-
-
 
