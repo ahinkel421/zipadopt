@@ -13,6 +13,10 @@ var map;
 
 $(document).ready(function() {
 
+//=================================================================
+// Initializes map, map controls, and where it centers by default. 
+//=================================================================
+
 	function initialize() {
 		geocoder = new google.maps.Geocoder();
 		var latlng = new google.maps.LatLng(40.648610, -101.942230);
@@ -40,21 +44,16 @@ $(document).ready(function() {
 			});
 	}
 
-
-	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-		infoWindow.setPosition(pos);
-		infoWindow.setContent(browserHasGeolocation ?
-			'Error: The Geolocation service failed.' :
-			'Error: Your browser doesn\'t support geolocation.');
-	};
-
-
 	function displayError() {
 		$('#no-results-found').removeClass('hidden');
 		$('#sadcat-pic').removeClass('hidden');
 		$('#address-instructions-box').removeClass('hidden');
 	}
-	
+
+//===================================================================
+// When user submits their search, specified data is requested from  
+// Petfinder API, map renders and is poulated with animal locations. 
+//===================================================================
 
 	$('#first-form').submit(function(event) {
 		event.preventDefault();
@@ -70,7 +69,10 @@ $(document).ready(function() {
 		centerMapToLocation(state);
 	});
 
-	// This allows a new search.
+//==============================
+// Allows user to search again. 
+//==============================
+
 	$('#nav-header, #search-again, #nav-button').click(function(event) {
 		location.reload();
 	});
@@ -100,21 +102,25 @@ $(document).ready(function() {
 					displayError(); 
 					return
 				}
-				state.petArray = data.petfinder.pets.pet; // 25 pets
+
+				state.petArray = data.petfinder.pets.pet;
+
 				if (state.petArray === undefined) {
 					displayError();
-				} else {
+				}
+
+				else {
 					displayPetData(state.petArray);
 				}
 			},
-			error: function(request, error) {
-				console.log('error', request);
-			}
 		});
 	}
 });
 
-// This opens modal + sets the modal data
+//===================================
+// Opens modal + sets the modal data 
+//===================================
+
 $('#pet-choices').on('click', '.modal-launcher', function(event) {
 	$("#modal-content, #modal-background").addClass("active");
 	var petIndex = $(this).attr('id');
@@ -123,7 +129,11 @@ $('#pet-choices').on('click', '.modal-launcher', function(event) {
 	
 });
 
-// When hovering over pet, shows where they are on the map
+//=========================================================
+// When hovering over and removing mouse from pet, toggles 
+// where they are on the map.                              
+//=========================================================
+
 $('#pet-choices').on('mouseover', '.pet', function(event) {
 	var petIndex = $(this).attr('id');
 	var marker = state.markers[petIndex]
@@ -132,7 +142,6 @@ $('#pet-choices').on('mouseover', '.pet', function(event) {
 	}
 });
 
-//Removes highlight on map when mouse leaves pet
 $('#pet-choices').on('mouseout', '.pet', function(event) {
 	var petIndex = $(this).attr('id');
 	var marker = state.markers[petIndex]
@@ -141,11 +150,17 @@ $('#pet-choices').on('mouseout', '.pet', function(event) {
 	}
 });
 
-// Closes the modal
+//==================
+// Closes the modal 
+//==================
+
 $("#modal-background, .modal-close").click(function () {
 	$("#modal-content, #modal-background").removeClass("active");
 });
 
+//==================================
+//Handles clickable arrows in modal 
+//==================================
 
 $('#left-arrow').click(function(event) {
 	if (state.clickedPetIndex > 0) {
@@ -156,6 +171,7 @@ $('#left-arrow').click(function(event) {
 	}
 	displayPetModal();
 })
+
 $('#right-arrow').click(function(event) {
 	if (state.clickedPetIndex < 24) {
 		state.clickedPetIndex++;
@@ -186,17 +202,17 @@ function displayPetModal() {
 	$('#modal-pet-size').text(clickedPetSize);
 	$('#modal-pet-description').text(clickedPetDescription);
 }
-	
-	function createMarker(latlon, currentPetName, index){
 
-		var marker = new google.maps.Marker({
-			position: latlon,
-			map: map,
-			title: currentPetName,
-			icon: 'images/icn_blue.png'
-		});
-		state.markers[index]=marker
-	}
+function createMarker(latlon, currentPetName, index){
+
+	var marker = new google.maps.Marker({
+		position: latlon,
+		map: map,
+		title: currentPetName,
+		icon: 'images/icn_blue.png'
+	});
+	state.markers[index]=marker
+}
 
 function displayPetData(petArray){
 	petArray.forEach(function(currentPet, index){
@@ -214,7 +230,11 @@ function displayPetData(petArray){
 				createMarker(location, currentPetName, index);
 			})	
 
-			//slows down querying google api for locations, avoiding limitations. 
+//==================================================================================
+// Google maps has limits on how many markers can populate on map, p/second.
+// This timeout slows down google api querying for locations, to avoid those limits. 
+//==================================================================================
+
 		    setTimeout(petLocationFinder, index*650);
 		
 			var petElement = $('#model-pet').find('.pet').clone();
