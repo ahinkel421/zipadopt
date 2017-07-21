@@ -24,7 +24,7 @@ If no results are found, the following error message will display:
 
 When the user decides that they are interested in one of the pets displayed, they can click on that pet to pull up a window that provides more information about that pet (including that animal's full description and their current owner's contact information). From this window, the user is also able to click the left and right arrow buttons to cycle through other pets. 
 
-![readme-screenshot4] ([zipadopt](https://github.com/ahinkel421/zipadopt)/**readme-screenshot4.png**)
+! [readme-screenshot4](readme-screenshot4.png)
 
 
 
