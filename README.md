@@ -6,7 +6,7 @@ Zipadopt is an application that allows you to search for adoptable pets in your 
 
 ​	The user's experience begins at the home page, where they are given a short form to fill out. This form asks the user for some basic information pertaining to the type of pet they would like to search for, including the type of animal, breed (if applicable), the size of the animal, and the user's location. 
 
-![readme-screenshot1](/Users/RobertHinkel/Desktop/Personal projects/zipadopt/readme-screenshot1.png)
+![readme-screenshot1](https://github.com/ahinkel421/zipadopt/**readme-screenshot1.png**)
 
 
 
@@ -24,7 +24,7 @@ If no results are found, the following error message will display:
 
 When the user decides that they are interested in one of the pets displayed, they can click on that pet to pull up a window that provides more information about that pet (including that animal's full description and their current owner's contact information). From this window, the user is also able to click the left and right arrow buttons to cycle through other pets. 
 
-! [readme-screenshot4](readme-screenshot4.png)
+! [readme-screenshot4] (readme-screenshot4.png)
 
 
 
