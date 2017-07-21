@@ -6,33 +6,27 @@ Zipadopt is an application that allows you to search for adoptable pets in your 
 
 ​	The user's experience begins at the home page, where they are given a short form to fill out. This form asks the user for some basic information pertaining to the type of pet they would like to search for, including the type of animal, breed (if applicable), the size of the animal, and the user's location. 
 
-
-
-![Screen Shot 2017-07-21 at 12.21.16 PM](/Users/RobertHinkel/Desktop/Screen Shot 2017-07-21 at 12.21.16 PM.png) 
+![readme-screenshot1](/Users/RobertHinkel/Desktop/Personal projects/zipadopt/readme-screenshot1.png)
 
 
 
 If no results are found, the following error message will display:
 
-
-
-![Screen Shot 2017-07-21 at 12.37.55 PM](/Users/RobertHinkel/Desktop/Screen Shot 2017-07-21 at 12.37.55 PM.png)
+![readme-screenshot2](/Users/RobertHinkel/Desktop/Personal projects/zipadopt/readme-screenshot2.png)
 
 
 
 ​	Once the user enters a valid search for his/her desired pet, they are taken to a gallery of various adoptable pets that match their search specifications. The map on the righthand side of the viewport will center to the location specified by the user and display markers for each pet displayed on the lefthand side of the viewport. If no location was entered, the map will zoom out to fit a full map of the U.S, allowing for a wider range of adoptable pets. 
 
+![readme-screenshot3](/Users/RobertHinkel/Desktop/Personal projects/zipadopt/readme-screenshot3.png)
+
+​	
+
+When the user decides that they are interested in one of the pets displayed, they can click on that pet to pull up a window that provides more information about that pet (including that animal's full description and their current owner's contact information). From this window, the user is also able to click the left and right arrow buttons to cycle through other pets. 
+
+![readme-screenshot4](/Users/RobertHinkel/Desktop/Personal projects/zipadopt/readme-screenshot4.png)
 
 
-![Screen Shot 2017-07-21 at 12.26.50 PM](/Users/RobertHinkel/Desktop/Screen Shot 2017-07-21 at 12.26.50 PM.png)
-
-
-
-​	When the user decides that they are interested in one of the pets displayed, they can click on that pet to pull up a window that provides more information about that pet (including that animal's full description and their current owner's contact information). From this window, the user is also able to click the left and right arrow buttons to cycle through other pets. 
-
-
-
-![Screen Shot 2017-07-21 at 12.53.21 PM](/Users/RobertHinkel/Desktop/Screen Shot 2017-07-21 at 12.53.21 PM.png)
 
 
 
