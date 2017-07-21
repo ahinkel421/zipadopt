@@ -10,9 +10,13 @@ Zipadopt is an application that allows you to search for adoptable pets in your 
 
 
 
+
+
 If no results are found, the following error message will display:
 
 ![readme-screenshot2](https://github.com/ahinkel421/zipadopt/blob/master/readme-screenshot2.png)
+
+
 
 
 
@@ -25,6 +29,8 @@ If no results are found, the following error message will display:
 When the user decides that they are interested in one of the pets displayed, they can click on that pet to pull up a window that provides more information about that pet (including that animal's full description and their current owner's contact information). From this window, the user is also able to click the left and right arrow buttons to cycle through other pets. 
 
 ![readme-screenshot4](https://github.com/ahinkel421/zipadopt/blob/master/readme-screenshot4.png)
+
+
 
 
 
