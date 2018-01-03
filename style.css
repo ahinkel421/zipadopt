@@ -40,7 +40,7 @@ footer{
 	width: 45%;
 	margin: 30px auto 100px auto;
 	color: rgb(239, 226, 195);
-	font-family: 'Crimson Text', serif;
+	font-family: 'Old Standard TT', serif;
 	text-align: center;
 }
 
@@ -71,7 +71,7 @@ footer{
 	font-size: 20px;
 	cursor: pointer;
 	color: rgb(5, 37, 102);
-	font-family: 'Crimson Text', serif;
+	font-family: 'Old Standard TT', serif;
 }
 
 #first-search-button:hover {
@@ -124,7 +124,7 @@ footer{
 	font-size: 20px;
 	cursor: pointer;
 	color: rgb(5, 37, 102);
-	font-family: 'Crimson Text', serif;
+	font-family: 'Old Standard TT', serif;
 	background-color: rgb(239, 226, 195);
 }
 
@@ -160,7 +160,7 @@ footer{
 	font-size: 25px;
 	width: 85%;
 	color: rgb(239, 226, 195);
-	font-family: 'Crimson Text', serif;
+	font-family: 'Old Standard TT', serif;
 }
 
 #pet-choices {
