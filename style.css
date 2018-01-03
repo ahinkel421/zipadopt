@@ -3,9 +3,10 @@
 }
 
 body {
-	font-family: 'Bellefair', serif;
+	font-family: 'Average', serif;
+	font-weight: lighter;
 	color: white;
-	background: -webkit-linear-gradient(rgba(28, 28, 31, 0.01), rgba(28, 28, 31, 0.1)), -webkit-linear-gradient(rgba(28, 28, 31, 0.5), rgba(28, 28, 31, 0.3)), url(cat.jpg);
+	background: -webkit-linear-gradient(rgba(0, 0, 0, 0.68), rgba(28, 28, 31, 0.1)), -webkit-linear-gradient(rgba(28, 28, 31, 0.5), rgba(28, 28, 31, 0.3)), url(cat.jpg);
 	background-position: center center;
 	background-attachment: fixed;
 	background-size: cover;
@@ -19,11 +20,18 @@ footer{
 	bottom: 0;
 }
 
+.page-one-input, #first-search-button  {
+	font-family: 'Average', serif;
+	margin: 10px auto;
+}
+
+
 .hidden {
 	display: none;
 }
 
 #page-one-header {
+	font-family:'Bellefair', serif;
 	text-align: center;
 	margin: 170px auto 24px auto;
 	font-size: 120px;
@@ -39,14 +47,13 @@ footer{
 	font-size: 35px;
 	width: 45%;
 	margin: 30px auto 100px auto;
-	color: rgb(239, 226, 195);
-	font-family: 'Old Standard TT', serif;
+	color: #fff1dc;
 	text-align: center;
 }
 
 #first-form {
 	font-size: 30px;
-	color: rgb(239, 226, 195);
+	color: #fff1dc;
 	text-align: center;
 }
 
@@ -71,7 +78,6 @@ footer{
 	font-size: 20px;
 	cursor: pointer;
 	color: rgb(5, 37, 102);
-	font-family: 'Old Standard TT', serif;
 }
 
 #first-search-button:hover {
@@ -124,13 +130,12 @@ footer{
 	font-size: 20px;
 	cursor: pointer;
 	color: rgb(5, 37, 102);
-	font-family: 'Old Standard TT', serif;
-	background-color: rgb(239, 226, 195);
+	background-color: #fff1dc;
 }
 
 #no-results-found {
 	font-weight: normal;
-	color: rgb(239, 226, 195);
+	color: #fff1dc;
 	width: 65%;
 	margin: 95px auto;
 	font-size: 50px;
@@ -159,8 +164,7 @@ footer{
 	text-decoration: none;
 	font-size: 25px;
 	width: 85%;
-	color: rgb(239, 226, 195);
-	font-family: 'Old Standard TT', serif;
+	color: #fff1dc;
 }
 
 #pet-choices {
@@ -200,7 +204,7 @@ footer{
 	list-style-type: none;
 	padding-left: 0;
 	font-size: 20px;
-	color: rgb(239, 226, 195);
+	color: #fff1dc;
 	cursor: pointer;
 }
 
@@ -231,7 +235,7 @@ footer{
 
 .links {
 	text-decoration: none;
-	color: rgb(239, 226, 195);
+	color: #fff1dc;
 }
 
 /*styles for modal*/
@@ -316,7 +320,7 @@ footer{
 }
 
 #modal-pet-info {
-	color: rgb(239, 226, 195);
+	color: #fff1dc;
 	font-size: 20px;
 	list-style: none;
 }
@@ -354,6 +358,9 @@ footer{
 		width: 60%;
 		margin-left: 150px;
 	}
+	.page-one-label {
+		padding: 8px;
+	}
 }
 
 @media (max-width: 1677px) {
@@ -365,7 +372,6 @@ footer{
 
 	.page-one-input {
 			display: block;
-			margin: 0 auto;
 	}
 }
 
