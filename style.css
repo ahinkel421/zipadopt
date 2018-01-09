@@ -32,7 +32,7 @@ footer{
 
 #page-one-header {
 	text-align: center;
-	margin: 170px auto 24px auto;
+	margin: 125px auto 24px auto;
 	font-size: 120px;
 	text-shadow: 2px 2px #001d91;
 	color: #c7e5ff;
@@ -380,8 +380,8 @@ footer{
 
 @media (max-width: 1300px) {
 	#page-one-header {
-		font-size: 120px;
-		width: 52%;
+		font-size: 100px;
+		width: 45%;
 	}
 
 	#greeting {
