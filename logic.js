@@ -39,9 +39,9 @@ $(document).ready(function() {
 		var addressSearch = state.locationChoice;
 
 		getLatLngFromAddressAsync(addressSearch, function(location) {
-				map.setCenter(location);
-				map.setZoom(7);
-			});
+			map.setCenter(location);
+			map.setZoom(7);
+		});
 	}
 
 	function displayError() {
