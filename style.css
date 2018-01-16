@@ -186,8 +186,7 @@ footer{
 }
 
 .pet-pic {
-	width: 315px;
-	height: 315px;
+	width: 100%;
 	cursor: pointer;
 }
 
