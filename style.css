@@ -4,7 +4,6 @@
 
 body {
 	font-family: 'Josefin Sans', sans-serif;
-	font-weight: lighter;
 	background: -webkit-linear-gradient(rgba(0, 0, 0, 0.68), rgba(28, 28, 31, 0.1)), -webkit-linear-gradient(rgba(28, 28, 31, 0.5), rgba(28, 28, 31, 0.3)), url(cat.jpg);
 	background-position: center center;
 	background-attachment: fixed;
@@ -21,10 +20,9 @@ footer{
 
 h1 {
     border: 1px solid #7D7E7F;
-    box-shadow: 9px 6px 10px #464646;
+    border-radius: 60px;
     letter-spacing: 5px;
-    z-index: 1;
-    background-color: #303030;
+    background-color: #2A2933;
 }
 
 .page-one-input, #first-search-button  {
@@ -38,7 +36,6 @@ h1 {
 }
 
 .header1 {
-	text-align: center;
     position: relative;
 }
 
@@ -56,12 +53,12 @@ h1 {
 
 #page-one-header {
 	text-align: center;
-	margin: 50px auto 150px auto;
-	font-size: 120px;
-	color: #c7e5ff;
+	margin: 50px auto 100px auto;
+	font-size: 100px;
+	color: #e1f2ff;
 	cursor: default;
 	font-weight: normal;
-	width: 45%;
+	width: 40%;
 }
 
 #page-one-header::before {
@@ -76,7 +73,7 @@ h1 {
 	font-size: 35px;
 	width: 45%;
 	margin: 0 auto 50px auto;
-	color: #fff1dc;
+	color: #fdf7ee;
 	text-align: center;
 }
 
@@ -106,7 +103,9 @@ h1 {
 	border-radius: 5px;
 	font-size: 20px;
 	cursor: pointer;
-	color: rgb(5, 37, 102);
+	background-color: #2A2933;
+	color: #fff1dc;
+	border: 1px solid grey;
 }
 
 #first-search-button:hover {
@@ -406,7 +405,7 @@ h1 {
 
 @media (max-width: 1300px) {
 	#page-one-header {
-		font-size: 100px;
+		font-size: 85px;
 		width: 45%;
 	}
 
