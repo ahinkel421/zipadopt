@@ -3,7 +3,7 @@
 }
 
 body {
-	font-family: 'Average', serif;
+	font-family: 'Josefin Sans', sans-serif;
 	font-weight: lighter;
 	color: white;
 	background: -webkit-linear-gradient(rgba(0, 0, 0, 0.68), rgba(28, 28, 31, 0.1)), -webkit-linear-gradient(rgba(28, 28, 31, 0.5), rgba(28, 28, 31, 0.3)), url(cat.jpg);
@@ -21,7 +21,7 @@ footer{
 }
 
 .page-one-input, #first-search-button  {
-	font-family: 'Average', serif;
+	font-family: 'Josefin Sans', sans-serif;
 	margin: 10px auto;
 }
 
@@ -34,16 +34,14 @@ footer{
 	text-align: center;
 	margin: 125px auto 24px auto;
 	font-size: 120px;
-	text-shadow: 2px 2px #001d91;
 	color: #c7e5ff;
 	cursor: default;
 	font-weight: normal;
-	border: 3px solid #c7e5ff;
 	width: 45%;
 }
 
 #page-one-header, #nav-header {
-	font-family:'Bellefair', serif;
+	font-family: 'Cardo', serif;
 }
 
 #greeting {
