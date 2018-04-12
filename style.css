@@ -5,7 +5,6 @@
 body {
 	font-family: 'Josefin Sans', sans-serif;
 	font-weight: lighter;
-	color: white;
 	background: -webkit-linear-gradient(rgba(0, 0, 0, 0.68), rgba(28, 28, 31, 0.1)), -webkit-linear-gradient(rgba(28, 28, 31, 0.5), rgba(28, 28, 31, 0.3)), url(cat.jpg);
 	background-position: center center;
 	background-attachment: fixed;
@@ -20,6 +19,14 @@ footer{
 	bottom: 0;
 }
 
+h1 {
+    border: 1px solid #7D7E7F;
+    box-shadow: 9px 6px 10px #464646;
+    letter-spacing: 5px;
+    z-index: 1;
+    background-color: #303030;
+}
+
 .page-one-input, #first-search-button  {
 	font-family: 'Josefin Sans', sans-serif;
 	margin: 10px auto;
@@ -30,14 +37,35 @@ footer{
 	display: none;
 }
 
+.header1 {
+	text-align: center;
+    position: relative;
+}
+
+.header1::before {
+	content: ' ';
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 50%;
+    border-bottom: 1px solid #7D7E7F;
+    z-index: -1;
+}
+    
+
 #page-one-header {
 	text-align: center;
-	margin: 125px auto 24px auto;
+	margin: 50px auto 150px auto;
 	font-size: 120px;
 	color: #c7e5ff;
 	cursor: default;
 	font-weight: normal;
 	width: 45%;
+}
+
+#page-one-header::before {
+
 }
 
 #page-one-header, #nav-header {
@@ -47,7 +75,7 @@ footer{
 #greeting {
 	font-size: 35px;
 	width: 45%;
-	margin: 30px auto 100px auto;
+	margin: 0 auto 50px auto;
 	color: #fff1dc;
 	text-align: center;
 }
@@ -439,7 +467,7 @@ footer{
 @media (max-width: 600px) {
 
 	#page-one-header {
-		font-size: 80px;
+		font-size: 60px;
 	}
 
 	#nav-form {
