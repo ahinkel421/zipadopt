@@ -98,19 +98,24 @@ h1 {
 }
 
 #first-search-button {
-	width: 85px;
+	width: 100px;
 	height: 35px;
-	border-radius: 5px;
+	border-radius: 65px;
 	font-size: 20px;
 	cursor: pointer;
 	background-color: #2A2933;
 	color: #fff1dc;
 	border: 1px solid grey;
+	transition-duration: .3s;
+  	transition-timing-function: ease;
 }
 
 #first-search-button:hover {
 	background-color: #27272f;
 	color: white;
+	letter-spacing: 1.4px;
+	border-radius: 65px;
+	width: 120px;
 }
 
 #footer {
