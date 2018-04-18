@@ -138,18 +138,15 @@ h1 {
 	left: 0px;
 	right: 0px;
 	height: 78px;
-	background-color: rgba(5, 37, 102, .5);
+	background-color: #110f29;
 }
 
 #nav-header {
 	color: #e1f2ff;
 	cursor: pointer;
 	font-weight: normal;
-	border: 1px solid #7D7E7F;
-	border-radius: 60px;
 	padding: 3px;
 	font-size: 35px;
-	letter-spacing: 5px;
 	margin: 12px 5px;
 	width: 22%;
 	text-align: center;
@@ -158,14 +155,14 @@ h1 {
 
 #nav-button {
 	position: absolute;
-	right: 20px;
-	top: 25px;
-	height: 35px;
-	width: 15%;
+	right: 30px;
+	top: 30px;
+	font-family: 'Josefin Sans', sans-serif;
 	font-size: 20px;
 	cursor: pointer;
-	color: rgb(5, 37, 102);
-	background-color: #fff1dc;
+	color: rgb(225, 242, 255);
+	background-color: #110f29;
+	border: none;
 }
 
 #no-results-found {
